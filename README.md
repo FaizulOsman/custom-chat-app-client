@@ -1,4 +1,4 @@
-# Book-Schema
+# Custom Chat App
 
 ## Live Link:
 
