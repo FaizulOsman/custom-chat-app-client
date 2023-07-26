@@ -4,6 +4,7 @@ import Login from '@/pages/Login';
 import NotFound from '@/pages/NotFound';
 import Home from '@/pages/Home';
 import Signup from '@/pages/Signup';
+import Chat from '@/pages/Chat';
 
 const routes = createBrowserRouter([
   {
@@ -13,6 +14,10 @@ const routes = createBrowserRouter([
       {
         index: true,
         element: <Home />,
+      },
+      {
+        path: `/chat`,
+        element: <Chat />,
       },
     ],
   },

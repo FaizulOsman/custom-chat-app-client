@@ -14,8 +14,11 @@ import {
   getFromLocalStorage,
   removeFromLocalStorage,
 } from '@/utils/localstorage';
+import { useGetUserByIdQuery } from '@/redux/features/user/userApi';
 
 export default function Navbar() {
+  const { data: getUserById } = useGetUserByIdQuery('64bece4929ddde4c5d1075fb');
+
   const user = JSON.parse(getFromLocalStorage('user-info')!);
   const handleLogOut = () => {
     removeFromLocalStorage('user-info');
@@ -53,7 +56,7 @@ export default function Navbar() {
                 <>
                   <li>
                     <Button variant="link" asChild>
-                      <Link to="/chat-list">Chat List</Link>
+                      <Link to={`/users/${getUserById?.data?.id}`}>Chat</Link>
                     </Button>
                   </li>
                 </>

@@ -23,8 +23,29 @@ const userApi = api.injectEndpoints({
         body: data,
       }),
     }),
+    getAllUsers: builder.query({
+      query: () => ({
+        url: `/users`,
+      }),
+    }),
+    getUserById: builder.query({
+      query: (id) => ({
+        url: `/users/${id}`,
+      }),
+    }),
+    getMyProfile: builder.query({
+      query: () => ({
+        url: `/users/my-profile`,
+      }),
+    }),
   }),
 });
 
-export const { useSignUpMutation, useLoginMutation, useRefreshTokenMutation } =
-  userApi;
+export const {
+  useSignUpMutation,
+  useLoginMutation,
+  useRefreshTokenMutation,
+  useGetAllUsersQuery,
+  useGetUserByIdQuery,
+  useGetMyProfileQuery,
+} = userApi;
