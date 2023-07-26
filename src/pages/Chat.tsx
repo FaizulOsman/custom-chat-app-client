@@ -143,7 +143,7 @@ const App: React.FC = () => {
     }
   }, [allChatMessages]);
 
-  const refreshInterval = 1000;
+  const refreshInterval = 100;
   useEffect(() => {
     const autoRefresh = () => {
       chatDataRefetch();
