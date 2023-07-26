@@ -52,15 +52,6 @@ export default function Navbar() {
                   <Link to="/">Home</Link>
                 </Button>
               </li>
-              {user?.email && (
-                <>
-                  <li>
-                    <Button variant="link" asChild>
-                      <Link to={`/users/${getUserById?.data?.id}`}>Chat</Link>
-                    </Button>
-                  </li>
-                </>
-              )}
               {!user?.email ? (
                 <>
                   <li>

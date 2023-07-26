@@ -2992,6 +2992,13 @@
   dependencies:
     "@types/react" "*"
 
+"@types/react-scroll-to-bottom@^4.2.1":
+  version "4.2.1"
+  resolved "https://registry.npmjs.org/@types/react-scroll-to-bottom/-/react-scroll-to-bottom-4.2.1.tgz"
+  integrity sha512-9+O/wUqeRWjm6WzAbLeKiNnD/TvjYno9mfYYJYUoSDtElJ+iOQHASBMuBF2HKHTHir+08xcIdqKq+iJ0CyI4yQ==
+  dependencies:
+    "@types/react" "*"
+
 "@types/react@*", "@types/react@^16.8 || ^17.0 || ^18.0", "@types/react@^16.8.0 || ^17.0.0 || ^18.0.0", "@types/react@^16.9.0 || ^17.0.0 || ^18.0.0", "@types/react@^18.0.28":
   version "18.2.8"
   resolved "https://registry.npmjs.org/@types/react/-/react-18.2.8.tgz"

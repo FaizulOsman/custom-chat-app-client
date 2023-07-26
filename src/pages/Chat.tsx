@@ -6,14 +6,8 @@ import {
   useGetAllUsersQuery,
   useGetMyProfileQuery,
 } from '@/redux/features/user/userApi';
-import React, { useEffect, useState } from 'react';
-
-interface User {
-  id: number;
-  name: string;
-  profileImage: string;
-  status: string;
-}
+import React, { useEffect, useRef, useState } from 'react';
+import ScrollToBottom from 'react-scroll-to-bottom';
 
 interface Message {
   content: string;
@@ -35,7 +29,7 @@ const Chat: React.FC<{ message: Message }> = ({ message }) => {
           isUserMessage ? 'bg-green-400 text-white' : 'bg-gray-200'
         }`}
       >
-        {message.content}
+        <ScrollToBottom>{message.content}</ScrollToBottom>
       </div>
     </div>
   );
@@ -88,7 +82,7 @@ const App: React.FC = () => {
 
   const { data: myProfile } = useGetMyProfileQuery('');
 
-  const [createChat, { data, isLoading, isSuccess }] = useCreateChatMutation();
+  const [createChat, { data, isSuccess }] = useCreateChatMutation();
 
   useEffect(() => {
     setChatMessages(chatData?.data);
@@ -136,11 +130,23 @@ const App: React.FC = () => {
     status: userProfile?.email,
   };
 
+  const chatContainerRef = useRef<HTMLDivElement | null>(null);
+  useEffect(() => {
+    // Step 4: Scroll to the bottom of the container whenever new messages are added or the component mounts
+    if (chatContainerRef.current) {
+      chatContainerRef.current.scrollTop =
+        chatContainerRef.current.scrollHeight;
+    }
+  }, [allChatMessages]);
+
   return (
     <div className="flex">
       <Sidebar myData={myData} otherData={otherData} />
       <div className="bg-gray-100 p-4 flex flex-col flex-1">
-        <div className="border bg-white border-gray-300 rounded-lg max-h-[500px] flex-1 overflow-y-scroll mb-4">
+        <div
+          ref={chatContainerRef}
+          className="border bg-white border-gray-300 rounded-lg max-h-[500px] flex-1 overflow-y-scroll mb-4"
+        >
           {allChatMessages?.map((message: any) => (
             <Chat key={message?.id} message={message} />
           ))}
