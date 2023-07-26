@@ -75,7 +75,8 @@ const App: React.FC = () => {
   const urlParams = new URLSearchParams(queryString);
   const email = urlParams.get('email');
 
-  const { data: chatData } = useGetChatByEmailQuery(email);
+  const { data: chatData, refetch: chatDataRefetch } =
+    useGetChatByEmailQuery(email);
 
   const [newMessage, setNewMessage] = useState<string>('');
   const [chatMessages, setChatMessages] = useState([]);
@@ -90,10 +91,8 @@ const App: React.FC = () => {
 
   let allChatMessages: any = chatMessages;
   if (data) {
-    allChatMessages = [...chatMessages, data?.data];
-    console.log(allChatMessages);
+    allChatMessages = [...chatMessages];
   }
-
   const handleSendMessage = () => {
     if (newMessage.trim() !== '') {
       const newChatMessage: Message = {
@@ -138,6 +137,16 @@ const App: React.FC = () => {
         chatContainerRef.current.scrollHeight;
     }
   }, [allChatMessages]);
+
+  const refreshInterval = 1000;
+  useEffect(() => {
+    const autoRefresh = () => {
+      chatDataRefetch();
+    };
+    const refreshTimer = setInterval(autoRefresh, refreshInterval);
+
+    return () => clearInterval(refreshTimer);
+  }, []);
 
   return (
     <div className="flex">
