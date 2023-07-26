@@ -11,7 +11,7 @@ export default function Home() {
   const allUsersExpectMe = allUsers?.data?.filter(
     (user: any) => user?.email !== myProfile?.data?.email
   );
-  console.log(allUsersExpectMe);
+
   return (
     <div className="min-h-screen mt-10">
       <h1 className="text-2xl font-semibold text-center text-blue-700">

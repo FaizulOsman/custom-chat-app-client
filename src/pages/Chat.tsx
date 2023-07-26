@@ -17,7 +17,7 @@ interface Message {
   name: string;
 }
 
-const Chat: React.FC<{ message: Message }> = ({ message }) => {
+const Chat: React.FC<{ message: any }> = ({ message }) => {
   const { data: getMyProfile } = useGetMyProfileQuery('');
   const isUserMessage = message.myEmail === getMyProfile?.data?.email;
   return (
@@ -29,7 +29,12 @@ const Chat: React.FC<{ message: Message }> = ({ message }) => {
           isUserMessage ? 'bg-green-400 text-white' : 'bg-gray-200'
         }`}
       >
-        <ScrollToBottom>{message.content}</ScrollToBottom>
+        <ScrollToBottom>
+          <div>
+            <div>{message.content}</div>
+            <div className="text-xs text-right">{message?.time}</div>
+          </div>
+        </ScrollToBottom>
       </div>
     </div>
   );
