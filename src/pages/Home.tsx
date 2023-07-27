@@ -11,7 +11,7 @@ export default function Home() {
   const allUsersExpectMe = allUsers?.data?.filter(
     (user: any) => user?.email !== myProfile?.data?.email
   );
-
+  console.log(myProfile);
   return (
     <div className="min-h-screen mt-10">
       <h1 className="text-2xl font-semibold text-center text-blue-700">
@@ -19,7 +19,10 @@ export default function Home() {
       </h1>
       <div className="w-8/12 mx-auto">
         {allUsersExpectMe?.map((user: any) => (
-          <Link to={`chat?email=${user?.email}`} key={user?.id}>
+          <Link
+            to={myProfile ? `chat?email=${user?.email}` : `/login`}
+            key={user?.id}
+          >
             <div className="flex justify-between hover:bg-slate-100 items-center mb-2 shadow-md mt-4 rounded-md p-4 cursor-pointer">
               <div className="flex items-center">
                 <img
