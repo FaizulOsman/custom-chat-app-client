@@ -9,6 +9,7 @@ import {
 import React, { useEffect, useRef, useState } from 'react';
 import ScrollToBottom from 'react-scroll-to-bottom';
 import './style.css';
+import { debounce } from 'lodash';
 
 interface Message {
   content: string;
@@ -171,6 +172,36 @@ const App: React.FC = () => {
     return () => clearInterval(refreshTimer);
   }, []);
 
+  const [isTyping, setIsTyping] = useState(false);
+  const [typingTimeout, setTypingTimeout] = useState<
+    NodeJS.Timeout | number | null
+  >(null);
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const typing = e.target.value.trim() !== '';
+    setIsTyping(typing);
+
+    // Clear typing status after 2 seconds of inactivity
+    if (typingTimeout) {
+      clearTimeout(typingTimeout as NodeJS.Timeout);
+    }
+    setTypingTimeout(
+      setTimeout(() => {
+        setIsTyping(false);
+      }, 1000)
+    );
+  };
+  // Clear the timeout when the component unmounts
+  useEffect(() => {
+    return () => {
+      if (typingTimeout) {
+        clearTimeout(typingTimeout as NodeJS.Timeout);
+      }
+    };
+  }, [typingTimeout]);
+
+  const debouncedHandleInputChange = debounce(handleInputChange, 1000);
+
   return (
     <div className="flex">
       <Sidebar myData={myData} otherData={otherData} />
@@ -183,13 +214,18 @@ const App: React.FC = () => {
             <Chat key={message?.id} message={message} />
           ))}
         </div>
+        {isTyping && <div className="text-xs">User is typing...</div>}
         <div className="flex">
           <input
             type="text"
             className="flex-1 rounded-lg p-2 mr-2 border border-gray-300"
             placeholder="Type your message..."
             value={newMessage}
-            onChange={(e) => setNewMessage(e.target.value)}
+            onChange={(e) => {
+              setNewMessage(e.target.value);
+              handleInputChange(e);
+              debouncedHandleInputChange(e);
+            }}
           />
           <button
             className="bg-blue-500 text-white px-4 py-2 rounded-lg"

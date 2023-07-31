@@ -17,7 +17,7 @@ export default function Home() {
       <h1 className="text-2xl font-semibold text-center text-blue-700">
         All Users
       </h1>
-      <div className="w-8/12 mx-auto">
+      <div className="w-11/12 sm:w-8/12 mx-auto">
         {allUsersExpectMe?.map((user: any) => (
           <Link
             to={myProfile ? `chat?email=${user?.email}` : `/login`}
