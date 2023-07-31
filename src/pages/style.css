@@ -1,0 +1,32 @@
+.message-left {
+  position: relative;
+}
+
+.message-left:before {
+  content: '';
+  position: absolute;
+  border-style: solid;
+  border-width: 10px 10px 10px 0;
+  display: block;
+  width: 0;
+  z-index: 0;
+  left: -9px;
+  top: 7%;
+  border-color: transparent #e5e7eb;
+}
+.message-right {
+  position: relative;
+}
+
+.message-right:after {
+  content: '';
+  position: absolute;
+  border-style: solid;
+  border-width: 10px 0 10px 10px;
+  display: block;
+  width: 0;
+  z-index: 0;
+  right: -9px;
+  top: 7%;
+  border-color: transparent #4ade80;
+}

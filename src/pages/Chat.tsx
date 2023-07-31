@@ -8,6 +8,7 @@ import {
 } from '@/redux/features/user/userApi';
 import React, { useEffect, useRef, useState } from 'react';
 import ScrollToBottom from 'react-scroll-to-bottom';
+import './style.css';
 
 interface Message {
   content: string;
@@ -24,9 +25,19 @@ const Chat: React.FC<{ message: any }> = ({ message }) => {
     <div
       className={`flex p-2 ${isUserMessage ? 'justify-end' : 'justify-start'}`}
     >
+      {isUserMessage || (
+        <img
+          src="https://static.vecteezy.com/system/resources/previews/009/383/461/original/man-face-clipart-design-illustration-free-png.png"
+          alt="test"
+          className="w-8 h-8 rounded-full mr-3 border-2 p-[1px]"
+        />
+      )}
+
       <div
-        className={`max-w-xs p-3 rounded-lg ${
-          isUserMessage ? 'bg-green-400 text-white' : 'bg-gray-200'
+        className={`max-w-xs p-3 rounded-lg  ${
+          isUserMessage
+            ? 'bg-green-400 text-white message-right'
+            : 'bg-gray-200 message-left'
         }`}
       >
         <ScrollToBottom>
@@ -36,6 +47,13 @@ const Chat: React.FC<{ message: any }> = ({ message }) => {
           </div>
         </ScrollToBottom>
       </div>
+      {isUserMessage && (
+        <img
+          src="https://static.vecteezy.com/system/resources/previews/009/383/461/original/man-face-clipart-design-illustration-free-png.png"
+          alt="test"
+          className="w-8 h-8 rounded-full ml-3 border-2 p-[1px]"
+        />
+      )}
     </div>
   );
 };
@@ -143,7 +161,7 @@ const App: React.FC = () => {
     }
   }, [allChatMessages]);
 
-  const refreshInterval = 100;
+  const refreshInterval = 0;
   useEffect(() => {
     const autoRefresh = () => {
       chatDataRefetch();
