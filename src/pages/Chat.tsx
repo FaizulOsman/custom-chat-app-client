@@ -1,5 +1,6 @@
 import {
   useCreateChatMutation,
+  useDeleteChatMutation,
   useGetChatByEmailQuery,
   useUpdateChatMutation,
 } from '@/redux/features/chat/chatApi';
@@ -12,6 +13,7 @@ import ScrollToBottom from 'react-scroll-to-bottom';
 import './style.css';
 import { debounce } from 'lodash';
 import { BiSmile } from 'react-icons/bi';
+import { MdDeleteOutline } from 'react-icons/md';
 
 interface Message {
   content: string;
@@ -26,11 +28,10 @@ const Chat: React.FC<{ message: any }> = ({ message }) => {
   const { data: getMyProfile } = useGetMyProfileQuery('');
   const isUserMessage = message.myEmail === getMyProfile?.data?.email;
   const [isReactionShow, setIsReactionShow] = useState(false);
-  const [updateChat, { data: updatedChatData }] = useUpdateChatMutation();
-
+  const [deleteChat] = useDeleteChatMutation();
+  const [updateChat] = useUpdateChatMutation();
   const handleReactionClick = (id: any, e: any) => {
     const reaction: any = { reaction: e };
-    console.log(updatedChatData);
     updateChat({ reaction, id });
   };
 
@@ -47,7 +48,7 @@ const Chat: React.FC<{ message: any }> = ({ message }) => {
       )}
 
       <div
-        className={`max-w-xs p-3 rounded-lg relative ${
+        className={`max-w-xs p-1 rounded-lg relative ${
           isUserMessage
             ? 'bg-green-400 text-white message-right'
             : 'bg-gray-200 message-left'
@@ -57,13 +58,12 @@ const Chat: React.FC<{ message: any }> = ({ message }) => {
           <div>
             <div>
               <div>{message.content}</div>
-              {/* <MessageReactions reactions={messageReactions} /> */}
-              <div className="text-xs text-right">{message?.time}</div>
+              <div className="text-xs text-right pl-7">{message?.time}</div>
             </div>
             <div
               onClick={() => setIsReactionShow(!isReactionShow)}
               className={`absolute cursor-pointer ${
-                isUserMessage ? 'right-full mr-4' : 'left-full ml-4'
+                isUserMessage ? 'right-full mr-2' : 'left-full ml-2'
               }  top-1/3 text-gray-600`}
             >
               <div>
@@ -81,16 +81,25 @@ const Chat: React.FC<{ message: any }> = ({ message }) => {
                   <button onClick={() => handleReactionClick(message?.id, 2)}>
                     ❤️
                   </button>
-                  {/* Add more reaction buttons as needed */}
                 </div>
               </div>
             </div>
-            {message?.reaction && (
+            {/* {getMyProfile?.data?.email === message?.myEmail && ( */}
+            <div
+              onClick={() => deleteChat(message?.id)}
+              className={`absolute cursor-pointer ${
+                isUserMessage ? 'right-full mr-6' : 'left-full ml-6'
+              }  top-1/3 text-gray-600`}
+            >
+              <MdDeleteOutline />
+            </div>
+            {/* )} */}
+            {message?.reaction > 0 && (
               <div
-                onClick={() => setIsReactionShow(!isReactionShow)}
+                onClick={() => handleReactionClick(message?.id, 0)}
                 className={`absolute cursor-pointer text-xs ${
                   isUserMessage ? 'right-0' : 'left-0'
-                } bottom-[-25px] bg-gray-200 rounded-md px-1 border-2 border-gray-400 py-0`}
+                } bottom-[-18px] bg-gray-200 rounded-full p-[1px] border border-gray-400`}
               >
                 {message?.reaction === 1 && '👍'}
                 {message?.reaction === 2 && '❤️'}
@@ -176,10 +185,11 @@ const App: React.FC = () => {
         myEmail: myProfile?.data?.email,
         userEmail: email,
         name: myProfile?.data?.name,
+        reaction: 0,
       };
       // setChatMessages([...chatMessages, newChatMessage]);
       setNewMessage('');
-
+      console.log(newChatMessage);
       createChat(newChatMessage);
     }
   };
@@ -259,7 +269,7 @@ const App: React.FC = () => {
       <div className="bg-gray-100 rounded-lg p-4 flex flex-col flex-1">
         <div
           ref={chatContainerRef}
-          className="border bg-white border-gray-300 rounded-lg max-h-[500px] flex-1 overflow-y-scroll mb-4"
+          className="border pb-3 bg-white border-gray-300 rounded-lg max-h-[500px] flex-1 overflow-y-scroll mb-4"
         >
           {allChatMessages?.map((message: any) => (
             <Chat key={message?.id} message={message} />

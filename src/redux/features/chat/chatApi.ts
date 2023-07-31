@@ -20,6 +20,14 @@ const userApi = api.injectEndpoints({
       invalidatesTags: ['chat'],
     }),
 
+    deleteChat: builder.mutation({
+      query: (id) => ({
+        url: `/chat/${id}`,
+        method: 'DELETE',
+      }),
+      invalidatesTags: ['chat'],
+    }),
+
     getChatByEmail: builder.query({
       query: (email) => ({
         url: `/chat?email=${email}`,
@@ -32,5 +40,6 @@ const userApi = api.injectEndpoints({
 export const {
   useCreateChatMutation,
   useUpdateChatMutation,
+  useDeleteChatMutation,
   useGetChatByEmailQuery,
 } = userApi;
