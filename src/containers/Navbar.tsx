@@ -14,11 +14,8 @@ import {
   getFromLocalStorage,
   removeFromLocalStorage,
 } from '@/utils/localstorage';
-import { useGetUserByIdQuery } from '@/redux/features/user/userApi';
 
 export default function Navbar() {
-  const { data: getUserById } = useGetUserByIdQuery('64bece4929ddde4c5d1075fb');
-
   const user = JSON.parse(getFromLocalStorage('user-info')!);
   const handleLogOut = () => {
     removeFromLocalStorage('user-info');
@@ -26,9 +23,9 @@ export default function Navbar() {
     window.location.reload();
   };
   return (
-    <nav className="w-full h-24 fixed top backdrop-blur-lg z-10">
-      <div className="h-full w-full bg-white/60">
-        <div className="flex items-center justify-between w-full md:max-w-7xl h-full mx-auto ">
+    <nav className="w-full h-20 fixed top backdrop-blur-lg z-10">
+      <div className="h-full w-11/12 md:w-10/12 lg:max-w-[1200px] mx-auto">
+        <div className="flex items-center justify-between w-full h-full mx-auto">
           <div>
             <Link to="/">
               <svg

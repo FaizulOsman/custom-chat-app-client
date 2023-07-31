@@ -63,7 +63,7 @@ const Sidebar: React.FC<{ myData: any; otherData: any }> = ({
   otherData,
 }) => {
   return (
-    <div className="bg-gray-100 p-4 h-[600px] w-60">
+    <div className="bg-gray-100 rounded-lg p-4 h-[600px] w-60 hidden sm:block">
       <h2 className="font-bold text-lg mb-4 text-center">My Profile</h2>
       <div key={myData?.id} className="flex items-center mb-2">
         <img
@@ -174,7 +174,7 @@ const App: React.FC = () => {
   return (
     <div className="flex">
       <Sidebar myData={myData} otherData={otherData} />
-      <div className="bg-gray-100 p-4 flex flex-col flex-1">
+      <div className="bg-gray-100 rounded-lg p-4 flex flex-col flex-1">
         <div
           ref={chatContainerRef}
           className="border bg-white border-gray-300 rounded-lg max-h-[500px] flex-1 overflow-y-scroll mb-4"
