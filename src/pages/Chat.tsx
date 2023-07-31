@@ -1,6 +1,7 @@
 import {
   useCreateChatMutation,
   useGetChatByEmailQuery,
+  useUpdateChatMutation,
 } from '@/redux/features/chat/chatApi';
 import {
   useGetAllUsersQuery,
@@ -10,6 +11,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import ScrollToBottom from 'react-scroll-to-bottom';
 import './style.css';
 import { debounce } from 'lodash';
+import { BiSmile } from 'react-icons/bi';
 
 interface Message {
   content: string;
@@ -17,11 +19,21 @@ interface Message {
   myEmail: string;
   userEmail: any;
   name: string;
+  reaction?: number;
 }
 
 const Chat: React.FC<{ message: any }> = ({ message }) => {
   const { data: getMyProfile } = useGetMyProfileQuery('');
   const isUserMessage = message.myEmail === getMyProfile?.data?.email;
+  const [isReactionShow, setIsReactionShow] = useState(false);
+  const [updateChat, { data: updatedChatData }] = useUpdateChatMutation();
+
+  const handleReactionClick = (id: any, e: any) => {
+    const reaction: any = { reaction: e };
+    console.log(updatedChatData);
+    updateChat({ reaction, id });
+  };
+
   return (
     <div
       className={`flex p-2 ${isUserMessage ? 'justify-end' : 'justify-start'}`}
@@ -35,7 +47,7 @@ const Chat: React.FC<{ message: any }> = ({ message }) => {
       )}
 
       <div
-        className={`max-w-xs p-3 rounded-lg  ${
+        className={`max-w-xs p-3 rounded-lg relative ${
           isUserMessage
             ? 'bg-green-400 text-white message-right'
             : 'bg-gray-200 message-left'
@@ -43,8 +55,47 @@ const Chat: React.FC<{ message: any }> = ({ message }) => {
       >
         <ScrollToBottom>
           <div>
-            <div>{message.content}</div>
-            <div className="text-xs text-right">{message?.time}</div>
+            <div>
+              <div>{message.content}</div>
+              {/* <MessageReactions reactions={messageReactions} /> */}
+              <div className="text-xs text-right">{message?.time}</div>
+            </div>
+            <div
+              onClick={() => setIsReactionShow(!isReactionShow)}
+              className={`absolute cursor-pointer ${
+                isUserMessage ? 'right-full mr-4' : 'left-full ml-4'
+              }  top-1/3 text-gray-600`}
+            >
+              <div>
+                <BiSmile />
+                <div
+                  className={`reaction-buttons absolute bottom-[120%] ${
+                    isReactionShow ? 'block' : 'hidden'
+                  } ${
+                    isUserMessage ? 'right-[-30px]' : 'left-[-30px]'
+                  } bg-gray-200 w-20 flex border-2 border-gray-400 rounded-lg justify-around p-1`}
+                >
+                  <button onClick={() => handleReactionClick(message?.id, 1)}>
+                    👍
+                  </button>
+                  <button onClick={() => handleReactionClick(message?.id, 2)}>
+                    ❤️
+                  </button>
+                  {/* Add more reaction buttons as needed */}
+                </div>
+              </div>
+            </div>
+            {message?.reaction && (
+              <div
+                onClick={() => setIsReactionShow(!isReactionShow)}
+                className={`absolute cursor-pointer text-xs ${
+                  isUserMessage ? 'right-0' : 'left-0'
+                } bottom-[-25px] bg-gray-200 rounded-md px-1 border-2 border-gray-400 py-0`}
+              >
+                {message?.reaction === 1 && '👍'}
+                {message?.reaction === 2 && '❤️'}
+              </div>
+            )}
           </div>
         </ScrollToBottom>
       </div>

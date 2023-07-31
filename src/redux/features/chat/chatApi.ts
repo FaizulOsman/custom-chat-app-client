@@ -8,14 +8,29 @@ const userApi = api.injectEndpoints({
         method: 'POST',
         body: data,
       }),
+      invalidatesTags: ['chat'],
+    }),
+
+    updateChat: builder.mutation({
+      query: ({ reaction, id }) => ({
+        url: `/chat/${id}`,
+        method: 'PATCH',
+        body: reaction,
+      }),
+      invalidatesTags: ['chat'],
     }),
 
     getChatByEmail: builder.query({
       query: (email) => ({
         url: `/chat?email=${email}`,
       }),
+      providesTags: ['chat'],
     }),
   }),
 });
 
-export const { useCreateChatMutation, useGetChatByEmailQuery } = userApi;
+export const {
+  useCreateChatMutation,
+  useUpdateChatMutation,
+  useGetChatByEmailQuery,
+} = userApi;
