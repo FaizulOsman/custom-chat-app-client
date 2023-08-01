@@ -14,6 +14,7 @@ import './style.css';
 import { debounce } from 'lodash';
 import { BiSmile } from 'react-icons/bi';
 import { MdDeleteOutline } from 'react-icons/md';
+import { toast } from 'react-toastify';
 
 interface Message {
   content: string;
@@ -33,6 +34,16 @@ const Chat: React.FC<{ message: any }> = ({ message }) => {
   const handleReactionClick = (id: any, e: any) => {
     const reaction: any = { reaction: e };
     updateChat({ reaction, id });
+  };
+
+  const handleDeleteChat = (id: any) => {
+    const text = 'Do you really want to delete this message?';
+    if (confirm(text) === true) {
+      deleteChat(id);
+      toast.success('You have deleted a message successfully.');
+    } else {
+      toast.error(`Delete Canceled!`);
+    }
   };
 
   return (
@@ -86,7 +97,7 @@ const Chat: React.FC<{ message: any }> = ({ message }) => {
             </div>
             {/* {getMyProfile?.data?.email === message?.myEmail && ( */}
             <div
-              onClick={() => deleteChat(message?.id)}
+              onClick={() => handleDeleteChat(message?.id)}
               className={`absolute cursor-pointer ${
                 isUserMessage ? 'right-full mr-6' : 'left-full ml-6'
               }  top-1/3 text-gray-600`}
@@ -269,8 +280,16 @@ const App: React.FC = () => {
       <div className="bg-gray-100 rounded-lg p-4 flex flex-col flex-1">
         <div
           ref={chatContainerRef}
-          className="border pt-5 pb-3 bg-white border-gray-300 rounded-lg max-h-[500px] min-h-[300px] flex-1 overflow-y-scroll mb-4"
+          className="border pt-5 pb-3 bg-white border-gray-300 rounded-lg max-h-[80vh] min-h-[50vh] flex-1 overflow-y-scroll mb-4"
         >
+          {allChatMessages?.length < 1 && (
+            <div className="w-full h-full flex flex-col justify-center items-center">
+              <h3 className="text-gray-600 text-xl font-bold">
+                No message found!
+              </h3>
+              <p>Start chat...</p>
+            </div>
+          )}
           {allChatMessages?.map((message: any) => (
             <Chat key={message?.id} message={message} />
           ))}
