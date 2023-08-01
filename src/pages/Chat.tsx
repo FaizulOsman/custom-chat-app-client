@@ -269,7 +269,7 @@ const App: React.FC = () => {
       <div className="bg-gray-100 rounded-lg p-4 flex flex-col flex-1">
         <div
           ref={chatContainerRef}
-          className="border pb-3 bg-white border-gray-300 rounded-lg max-h-[500px] flex-1 overflow-y-scroll mb-4"
+          className="border pt-5 pb-3 bg-white border-gray-300 rounded-lg max-h-[500px] min-h-[300px] flex-1 overflow-y-scroll mb-4"
         >
           {allChatMessages?.map((message: any) => (
             <Chat key={message?.id} message={message} />
