@@ -3,7 +3,6 @@ import {
   useGetMyProfileQuery,
 } from '@/redux/features/user/userApi';
 import { Link } from 'react-router-dom';
-import { HiOutlineSearch } from 'react-icons/hi';
 import { useState } from 'react';
 
 export default function Home() {
@@ -31,24 +30,6 @@ export default function Home() {
           onChange={(e) => handleFindUser(e)}
           className="input input-bordered border-blue-500 w-full max-w-xs"
         />
-        <div className="border-2 border-blue-500 rounded-full p-2 bg-blue-500 text-white">
-          {/* <svg
-            stroke="currentColor"
-            fill="none"
-            stroke-width="2"
-            viewBox="0 0 24 24"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            height="1em"
-            width="1em"
-            xmlns="http://www.w3.org/2000/svg"
-            className="text-white"
-          >
-            <line x1="22" y1="2" x2="11" y2="13"></line>
-            <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
-          </svg> */}
-          <HiOutlineSearch />
-        </div>
       </div>
       <div className="w-11/12 sm:w-8/12 mx-auto">
         {allUsersExpectMe?.map((user: any) => (

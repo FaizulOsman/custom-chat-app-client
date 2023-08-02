@@ -135,7 +135,7 @@ const Sidebar: React.FC<{ myData: any; otherData: any }> = ({
   otherData,
 }) => {
   return (
-    <div className="bg-gray-100 rounded-lg p-4 h-[600px] w-60 hidden sm:block">
+    <div className="bg-gray-100 border-r-2 border-white rounded-lg p-4 h-[80vh] w-60 hidden sm:block">
       <h2 className="font-bold text-lg mb-4 text-center">My Profile</h2>
       <div key={myData?.id} className="flex items-center mb-2">
         <img
@@ -307,12 +307,24 @@ const App: React.FC = () => {
               debouncedHandleInputChange(e);
             }}
           />
-          <button
-            className="bg-blue-500 text-white px-4 py-2 rounded-lg"
-            onClick={handleSendMessage}
-          >
-            Send
-          </button>
+          <div className="border-2 border-blue-500 rounded-full px-3 py-2 bg-blue-500 flex items-center justify-center">
+            <svg
+              onClick={handleSendMessage}
+              stroke="currentColor"
+              fill="none"
+              stroke-width="2"
+              viewBox="0 0 24 24"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              height="1em"
+              width="1em"
+              xmlns="http://www.w3.org/2000/svg"
+              className="text-white"
+            >
+              <line x1="22" y1="2" x2="11" y2="13"></line>
+              <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+            </svg>
+          </div>
         </div>
       </div>
     </div>

@@ -23,7 +23,7 @@ export default function Navbar() {
     window.location.reload();
   };
   return (
-    <nav className="w-full h-20 fixed top backdrop-blur-lg z-10">
+    <nav className="w-full h-[10vh] fixed top backdrop-blur-lg z-10">
       <div className="h-full w-11/12 md:w-10/12 lg:max-w-[1200px] mx-auto">
         <div className="flex items-center justify-between w-full h-full mx-auto">
           <div>
