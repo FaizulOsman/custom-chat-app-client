@@ -24,8 +24,8 @@ const userApi = api.injectEndpoints({
       }),
     }),
     getAllUsers: builder.query({
-      query: () => ({
-        url: `/users`,
+      query: (searchTerm) => ({
+        url: `/users?searchTerm=${searchTerm}`,
       }),
     }),
     getUserById: builder.query({

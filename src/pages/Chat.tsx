@@ -75,7 +75,7 @@ const Chat: React.FC<{ message: any }> = ({ message }) => {
               onClick={() => setIsReactionShow(!isReactionShow)}
               className={`absolute cursor-pointer ${
                 isUserMessage ? 'right-full mr-2' : 'left-full ml-2'
-              }  top-1/3 text-gray-600`}
+              }  top-1/3 text-gray-600 hover:bg-gray-300 rounded-md`}
             >
               <div>
                 <BiSmile />
