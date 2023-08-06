@@ -24,6 +24,8 @@ const Sidebar: React.FC<{ myData: any; otherData: any }> = () => {
   const { data: allUsers } = useGetAllUsersQuery(searchValue);
   const { data: myProfile } = useGetMyProfileQuery('');
   const user = JSON.parse(getFromLocalStorage('user-info')!);
+  const findUserEmail = window.location.search.split('=')[1];
+
   const handleLogOut = () => {
     removeFromLocalStorage('user-info');
     removeFromLocalStorage('access-token');
@@ -39,13 +41,13 @@ const Sidebar: React.FC<{ myData: any; otherData: any }> = () => {
   };
 
   return (
-    <div className="min-h-screen mt-10 w-[260px] overflow-y-auto h-full">
+    <div className="min-h-screen pt-4 w-[260px] overflow-y-auto h-full bg-[#151030] text-white border-r border-gray-500">
       <div className="flex items-center justify-between px-2">
         <Link to="/">
           <BiLeftArrowAlt />
         </Link>
         <DropdownMenu>
-          <DropdownMenuTrigger className="outline-none">
+          <DropdownMenuTrigger className="outline-none border-2 rounded-full">
             <Avatar>
               <AvatarImage
                 className="object-contain bg-slate-800"
@@ -101,16 +103,20 @@ const Sidebar: React.FC<{ myData: any; otherData: any }> = () => {
           type="text"
           placeholder="Search UserName or Email"
           onChange={(e) => handleFindUser(e)}
-          className="border px-2 py-1 rounded-md border-blue-500 w-full max-w-xs text-xs"
+          className="border px-2 py-2 rounded-md bg-[#292440] border-blue-500 w-full max-w-xs text-xs"
         />
       </div>
-      <div className="w-11/12 mx-auto">
+      <div className="allUsers h-[70vh] overflow-y-auto w-11/12 mx-auto">
         {allUsersExpectMe?.map((user: any) => (
           <Link
             to={myProfile ? `/chat?email=${user?.email}` : `/login`}
             key={user?.id}
           >
-            <div className="flex justify-between hover:bg-slate-100 items-center border-b-2 rounded-md p-2 cursor-pointer">
+            <div
+              className={`${
+                findUserEmail === user?.email && 'bg-[#292440]'
+              } flex justify-between hover:bg-[#292440] items-center border-b-2 border-[#292440] rounded-md p-2 cursor-pointer`}
+            >
               <div className="flex items-center">
                 <img
                   src="https://static.vecteezy.com/system/resources/previews/009/383/461/original/man-face-clipart-design-illustration-free-png.png"

@@ -62,7 +62,7 @@ const Chat: React.FC<{ message: any }> = ({ message }) => {
       <div
         className={`max-w-xs p-1 rounded-lg relative ${
           isUserMessage
-            ? 'bg-green-400 text-white message-right'
+            ? 'bg-[#005c4b] text-white message-right'
             : 'bg-gray-200 message-left'
         }`}
       >
@@ -111,7 +111,7 @@ const Chat: React.FC<{ message: any }> = ({ message }) => {
                 onClick={() => handleReactionClick(message?.id, 0)}
                 className={`absolute cursor-pointer text-xs ${
                   isUserMessage ? 'right-0' : 'left-0'
-                } bottom-[-18px] bg-gray-200 rounded-full p-[1px] border border-gray-400`}
+                } bottom-[-18px] bg-[#292440] rounded-full p-[1px] border border-gray-400`}
               >
                 {message?.reaction === 1 && '👍'}
                 {message?.reaction === 2 && '❤️'}
@@ -243,10 +243,10 @@ const App: React.FC = () => {
   return (
     <div className="flex">
       <Sidebar myData={myData} otherData={otherData} />
-      <div className="bg-gray-100 rounded-lg p-4 flex flex-col flex-1 max-h-[100vh]">
+      <div className="bg-[#151030] p-4 flex flex-col flex-1 max-h-[100vh]">
         <div
           ref={chatContainerRef}
-          className="border pt-5 pb-3 bg-white border-gray-300 rounded-lg max-h-[100vh] min-h-[50vh] flex-1 overflow-y-scroll mb-4"
+          className="border pt-5 pb-3 bg-[#050816] border-gray-500 rounded-lg max-h-[100vh] min-h-[50vh] flex-1 overflow-y-scroll mb-4"
         >
           {allChatMessages?.length < 1 && (
             <div className="w-full h-full flex flex-col justify-center items-center">
@@ -264,7 +264,7 @@ const App: React.FC = () => {
         <div className="flex">
           <input
             type="text"
-            className="flex-1 rounded-lg p-2 mr-2 border border-gray-300"
+            className="flex-1 rounded-lg p-2 mr-2 bg-[#050816] border border-gray-500"
             placeholder="Type your message..."
             value={newMessage}
             onChange={(e) => {
