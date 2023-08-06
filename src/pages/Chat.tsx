@@ -16,6 +16,11 @@ import { BiSmile } from 'react-icons/bi';
 import { MdDeleteOutline } from 'react-icons/md';
 import { toast } from 'react-toastify';
 import Sidebar from '@/containers/ChatSidebar';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
 
 interface Message {
   content: string;
@@ -38,13 +43,8 @@ const Chat: React.FC<{ message: any }> = ({ message }) => {
   };
 
   const handleDeleteChat = (id: any) => {
-    const text = 'Do you really want to delete this message?';
-    if (confirm(text) === true) {
-      deleteChat(id);
-      toast.success('You have deleted a message successfully.');
-    } else {
-      toast.error(`Delete Canceled!`);
-    }
+    deleteChat(id);
+    toast.success('Successfully deleted the message.');
   };
 
   return (
@@ -76,36 +76,54 @@ const Chat: React.FC<{ message: any }> = ({ message }) => {
               onClick={() => setIsReactionShow(!isReactionShow)}
               className={`absolute cursor-pointer ${
                 isUserMessage ? 'right-full mr-2' : 'left-full ml-2'
-              }  top-1/3 text-gray-600 hover:bg-gray-300 rounded-md`}
+              }  top-1/3 text-gray-600`}
             >
               <div>
-                <BiSmile />
-                <div
-                  className={`reaction-buttons absolute bottom-[120%] ${
-                    isReactionShow ? 'block' : 'hidden'
-                  } ${
-                    isUserMessage ? 'right-[-30px]' : 'left-[-30px]'
-                  } bg-gray-200 w-20 flex border-2 border-gray-400 rounded-lg justify-around p-1`}
-                >
-                  <button onClick={() => handleReactionClick(message?.id, 1)}>
-                    👍
-                  </button>
-                  <button onClick={() => handleReactionClick(message?.id, 2)}>
-                    ❤️
-                  </button>
-                </div>
+                <DropdownMenu>
+                  <DropdownMenuTrigger>
+                    <BiSmile className="text-white" />
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent>
+                    <div className="flex justify-around">
+                      <button
+                        onClick={() => handleReactionClick(message?.id, 1)}
+                      >
+                        👍
+                      </button>
+                      <button
+                        onClick={() => handleReactionClick(message?.id, 2)}
+                      >
+                        ❤️
+                      </button>
+                    </div>
+                  </DropdownMenuContent>
+                </DropdownMenu>
               </div>
             </div>
-            {/* {getMyProfile?.data?.email === message?.myEmail && ( */}
             <div
-              onClick={() => handleDeleteChat(message?.id)}
               className={`absolute cursor-pointer ${
                 isUserMessage ? 'right-full mr-6' : 'left-full ml-6'
               }  top-1/3 text-gray-600`}
             >
-              <MdDeleteOutline />
+              <DropdownMenu>
+                <DropdownMenuTrigger>
+                  <MdDeleteOutline className="text-white" />
+                </DropdownMenuTrigger>
+                <DropdownMenuContent>
+                  <h4 className="font-semibold mb-2 text-sm">
+                    Do you want to delete the message?
+                  </h4>
+                  <div className="flex justify-end">
+                    <button
+                      onClick={() => handleDeleteChat(message?.id)}
+                      className="border bg-red-600 text-xs text-white rounded-md px-2"
+                    >
+                      Yes
+                    </button>
+                  </div>
+                </DropdownMenuContent>
+              </DropdownMenu>
             </div>
-            {/* )} */}
             {message?.reaction > 0 && (
               <div
                 onClick={() => handleReactionClick(message?.id, 0)}
@@ -164,7 +182,6 @@ const App: React.FC = () => {
         name: myProfile?.data?.name,
         reaction: 0,
       };
-      // setChatMessages([...chatMessages, newChatMessage]);
       setNewMessage('');
       console.log(newChatMessage);
       createChat(newChatMessage);
@@ -264,7 +281,7 @@ const App: React.FC = () => {
         <div className="flex">
           <input
             type="text"
-            className="flex-1 rounded-lg p-2 mr-2 bg-[#050816] border border-gray-500"
+            className="flex-1 rounded-lg p-2 mr-2 bg-[#050816] border border-gray-500 text-white"
             placeholder="Type your message..."
             value={newMessage}
             onChange={(e) => {
@@ -273,7 +290,7 @@ const App: React.FC = () => {
               debouncedHandleInputChange(e);
             }}
           />
-          <div className="border-2 border-blue-500 rounded-full px-3 py-2 bg-blue-500 flex items-center justify-center">
+          <div className="border-2 border-blue-500 rounded-full px-3 py-2 bg-blue-500 flex items-center justify-center cursor-pointer">
             <svg
               onClick={handleSendMessage}
               stroke="currentColor"
