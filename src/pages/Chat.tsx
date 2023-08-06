@@ -15,6 +15,7 @@ import { debounce } from 'lodash';
 import { BiSmile } from 'react-icons/bi';
 import { MdDeleteOutline } from 'react-icons/md';
 import { toast } from 'react-toastify';
+import Sidebar from '@/containers/ChatSidebar';
 
 interface Message {
   content: string;
@@ -126,41 +127,6 @@ const Chat: React.FC<{ message: any }> = ({ message }) => {
           className="w-8 h-8 rounded-full ml-3 border-2 p-[1px]"
         />
       )}
-    </div>
-  );
-};
-
-const Sidebar: React.FC<{ myData: any; otherData: any }> = ({
-  myData,
-  otherData,
-}) => {
-  return (
-    <div className="bg-gray-100 border-r-2 border-white rounded-lg p-4 h-[80vh] w-60 hidden sm:block">
-      <h2 className="font-bold text-lg mb-4 text-center">My Profile</h2>
-      <div key={myData?.id} className="flex items-center mb-2">
-        <img
-          src={myData?.profileImage}
-          alt={myData?.name}
-          className="w-10 h-10 rounded-full mr-3"
-        />
-        <div>
-          <p className="font-semibold">{myData?.name}</p>
-          <p className="text-sm text-gray-500">{myData?.status}</p>
-        </div>
-      </div>
-
-      <h2 className="font-bold text-lg mb-4 mt-10 text-center">User Profile</h2>
-      <div key={otherData?.id} className="flex items-center mb-2">
-        <img
-          src={otherData?.profileImage}
-          alt={otherData?.name}
-          className="w-10 h-10 rounded-full mr-3"
-        />
-        <div>
-          <p className="font-semibold">{otherData?.name}</p>
-          <p className="text-sm text-gray-500">{otherData?.status}</p>
-        </div>
-      </div>
     </div>
   );
 };
@@ -277,10 +243,10 @@ const App: React.FC = () => {
   return (
     <div className="flex">
       <Sidebar myData={myData} otherData={otherData} />
-      <div className="bg-gray-100 rounded-lg p-4 flex flex-col flex-1">
+      <div className="bg-gray-100 rounded-lg p-4 flex flex-col flex-1 max-h-[100vh]">
         <div
           ref={chatContainerRef}
-          className="border pt-5 pb-3 bg-white border-gray-300 rounded-lg max-h-[80vh] min-h-[50vh] flex-1 overflow-y-scroll mb-4"
+          className="border pt-5 pb-3 bg-white border-gray-300 rounded-lg max-h-[100vh] min-h-[50vh] flex-1 overflow-y-scroll mb-4"
         >
           {allChatMessages?.length < 1 && (
             <div className="w-full h-full flex flex-col justify-center items-center">
@@ -312,10 +278,10 @@ const App: React.FC = () => {
               onClick={handleSendMessage}
               stroke="currentColor"
               fill="none"
-              stroke-width="2"
+              strokeWidth="2"
               viewBox="0 0 24 24"
-              stroke-linecap="round"
-              stroke-linejoin="round"
+              strokeLinecap="round"
+              strokeLinejoin="round"
               height="1em"
               width="1em"
               xmlns="http://www.w3.org/2000/svg"
