@@ -270,9 +270,26 @@ const App: React.FC = () => {
               <h3 className="text-gray-600 text-xl font-bold">
                 No message found!
               </h3>
-              <p>Start chat...</p>
+              <p className="text-gray-600">Start chat...</p>
             </div>
           )}
+          <div>
+            <div className="flex items-center">
+              <img
+                src="https://static.vecteezy.com/system/resources/previews/009/383/461/original/man-face-clipart-design-illustration-free-png.png"
+                alt="sssssssssss"
+                className="w-8 h-8 border p-[2px] rounded-full mr-3"
+              />
+              {/* <div>
+                  <p className="font-semibold">{user?.name}</p>
+                  <p className="text-sm text-gray-500">
+                    {user?.email.length > 18
+                      ? user?.email?.slice(0, 18) + '...'
+                      : user?.email}
+                  </p>
+                </div> */}
+            </div>
+          </div>
           {allChatMessages?.map((message: any) => (
             <Chat key={message?.id} message={message} />
           ))}
@@ -290,9 +307,11 @@ const App: React.FC = () => {
               debouncedHandleInputChange(e);
             }}
           />
-          <div className="border-2 border-blue-500 rounded-full px-3 py-2 bg-blue-500 flex items-center justify-center cursor-pointer">
+          <div
+            onClick={handleSendMessage}
+            className="border-2 border-blue-500 rounded-full px-3 py-2 bg-blue-500 flex items-center justify-center cursor-pointer"
+          >
             <svg
-              onClick={handleSendMessage}
               stroke="currentColor"
               fill="none"
               strokeWidth="2"
