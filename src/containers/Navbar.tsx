@@ -31,7 +31,7 @@ export default function Navbar({ handleFindUser }: any) {
             type="text"
             placeholder="Search UserName or Email"
             onChange={(e) => handleFindUser(e)}
-            className="input px-2 input-sm sm:input-md w-full input-bordered border-blue-500 bg-[#1c134d] text-white"
+            className="input px-2 input-sm sm:h-9 w-full input-bordered border-blue-500 bg-[#1c134d] text-white"
           />
         </div>
         <div className="dropdown dropdown-end">
