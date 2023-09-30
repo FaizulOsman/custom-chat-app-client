@@ -4,6 +4,7 @@ import {
 } from '@/redux/features/user/userApi';
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
+import Footer from '@/containers/Footer';
 
 export default function Home() {
   const [searchValue, setSearchValue] = useState('');
@@ -56,6 +57,7 @@ export default function Home() {
           </Link>
         ))}
       </div>
+      <Footer />
     </div>
   );
 }
