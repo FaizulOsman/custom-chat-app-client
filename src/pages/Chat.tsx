@@ -312,21 +312,21 @@ const App: React.FC = () => {
             </div>
           )}
           <div>
-            <div className="flex items-center">
+            {/* <div className="flex items-center">
               <img
                 src="https://static.vecteezy.com/system/resources/previews/009/383/461/original/man-face-clipart-design-illustration-free-png.png"
                 alt="sssssssssss"
                 className="w-8 h-8 border p-[2px] rounded-full mr-3"
               />
-              {/* <div>
+              <div>
                   <p className="font-semibold">{user?.name}</p>
                   <p className="text-sm text-gray-500">
                     {user?.email.length > 18
                       ? user?.email?.slice(0, 18) + '...'
                       : user?.email}
                   </p>
-                </div> */}
-            </div>
+                </div>
+            </div> */}
           </div>
           {allChatMessages?.map((message: any) => (
             <Chat key={message?.id} message={message} />
