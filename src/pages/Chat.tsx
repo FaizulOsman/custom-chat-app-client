@@ -60,10 +60,10 @@ const Chat: React.FC<{ message: any }> = ({ message }) => {
       )}
 
       <div
-        className={`max-w-xs p-1 rounded-lg relative ${
+        className={`max-w-xs p-1 rounded-lg relative text-white ${
           isUserMessage
-            ? 'bg-[#005c4b] text-white message-right'
-            : 'bg-gray-200 message-left'
+            ? 'bg-[#005c4b] message-right'
+            : 'bg-[#292440] message-left'
         }`}
       >
         <ScrollToBottom>
