@@ -95,6 +95,36 @@ const Chat: React.FC<{ message: any }> = ({ message }) => {
                       >
                         ❤️
                       </button>
+                      <button
+                        onClick={() => handleReactionClick(message?.id, 3)}
+                      >
+                        😊
+                      </button>
+                      <button
+                        onClick={() => handleReactionClick(message?.id, 4)}
+                      >
+                        😂
+                      </button>
+                      <button
+                        onClick={() => handleReactionClick(message?.id, 5)}
+                      >
+                        😭
+                      </button>
+                      <button
+                        onClick={() => handleReactionClick(message?.id, 6)}
+                      >
+                        😍
+                      </button>
+                      <button
+                        onClick={() => handleReactionClick(message?.id, 7)}
+                      >
+                        👌
+                      </button>
+                      <button
+                        onClick={() => handleReactionClick(message?.id, 8)}
+                      >
+                        🫡
+                      </button>
                     </div>
                   </DropdownMenuContent>
                 </DropdownMenu>
@@ -135,6 +165,12 @@ const Chat: React.FC<{ message: any }> = ({ message }) => {
               >
                 {message?.reaction === 1 && '👍'}
                 {message?.reaction === 2 && '❤️'}
+                {message?.reaction === 3 && '😊'}
+                {message?.reaction === 4 && '😂'}
+                {message?.reaction === 5 && '😭'}
+                {message?.reaction === 6 && '😍'}
+                {message?.reaction === 7 && '👌'}
+                {message?.reaction === 8 && '🫡'}
               </div>
             )}
           </div>
