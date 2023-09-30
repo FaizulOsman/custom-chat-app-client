@@ -1,135 +1,88 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
-import { Link } from 'react-router-dom';
-import { Avatar, AvatarFallback, AvatarImage } from '../components/ui/avatar';
-import { Button } from '../components/ui/button';
-import { DropdownMenuSeparator } from '../components/ui/dropdown-menu';
-import { DropdownMenuLabel } from '../components/ui/dropdown-menu';
-import {
-  DropdownMenuItem,
-  DropdownMenu,
-  DropdownMenuTrigger,
-  DropdownMenuContent,
-} from '../components/ui/dropdown-menu';
+
 import {
   getFromLocalStorage,
   removeFromLocalStorage,
 } from '@/utils/localstorage';
+import { Link } from 'react-router-dom';
 
-export default function Navbar() {
+export default function Navbar({ handleFindUser }: any) {
   const user = JSON.parse(getFromLocalStorage('user-info')!);
+
   const handleLogOut = () => {
     removeFromLocalStorage('user-info');
     removeFromLocalStorage('access-token');
     window.location.reload();
   };
+
   return (
-    <nav className="w-full h-[10vh] fixed top backdrop-blur-lg z-10">
-      <div className="h-full w-11/12 md:w-10/12 lg:max-w-[1200px] mx-auto">
-        <div className="flex items-center justify-between w-full h-full mx-auto">
-          <div>
-            <Link to="/">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                stroke="currentColor"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                className="w-10 h-10 text-white p-2 bg-indigo-500 rounded-full"
-                viewBox="0 0 24 24"
-              >
-                <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
-              </svg>
-            </Link>
-          </div>
-          <div>
-            <ul className="flex items-center">
-              <li>
-                <Button variant="link" asChild>
-                  <Link to="/">Home</Link>
-                </Button>
-              </li>
-              {!user?.email ? (
-                <>
-                  <li>
-                    <Button variant="link" asChild>
-                      <Link to="/login">Login</Link>
-                    </Button>
-                  </li>
-                  <li>
-                    <Button variant="link" asChild>
-                      <Link to="/signup">SignUp</Link>
-                    </Button>
-                  </li>
-                </>
-              ) : (
+    <div className="navbar p-0 bg-[#050816] text-white w-11/12 sm:w-8/12 mx-auto border-b-2 border-[#56526c]">
+      <div className="flex-1">
+        <Link to="/">
+          <img
+            src="https://i.ibb.co/xG1rNfX/png-clipart-livechat-online-chat-computer-icons-chat-room-web-chat-others-miscellaneous-blue-thumbna.png"
+            className="w-8 sm:w-10 h-8 sm:h-10 rounded-full"
+          />
+        </Link>
+      </div>
+      <div className="flex-none gap-2">
+        <div className="form-control w-[180px] sm:w-[220px]">
+          <input
+            type="text"
+            placeholder="Search UserName or Email"
+            onChange={(e) => handleFindUser(e)}
+            className="input px-2 input-sm sm:input-md w-full input-bordered border-blue-500 bg-[#1c134d] text-white"
+          />
+        </div>
+        <div className="dropdown dropdown-end">
+          <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
+            <div className="w-8 sm:w-10 h-8 sm:h-10 rounded-full">
+              <img
+                src="https://i.ibb.co/nrtwzQd/avatar-boy.webp"
+                className="w-10 h-10 rounded-full border p-[2px]"
+              />
+            </div>
+          </label>
+          <ul
+            tabIndex={0}
+            className="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-[#1e1360] rounded-box w-52"
+          >
+            {user && (
+              <>
                 <li>
-                  <Button onClick={() => handleLogOut()} variant="link" asChild>
-                    <Link to="">Log Out</Link>
-                  </Button>
+                  <a className="hover:bg-[#181042] hover:text-white">
+                    Name: {user?.name}
+                  </a>
                 </li>
-              )}
-            </ul>
-          </div>
-          <div>
-            <ul className="flex items-center">
-              <li className="ml-5">
-                <DropdownMenu>
-                  <DropdownMenuTrigger className="outline-none">
-                    <Avatar>
-                      <AvatarImage
-                        className="object-contain bg-slate-800"
-                        src="https://static.vecteezy.com/system/resources/previews/009/383/461/original/man-face-clipart-design-illustration-free-png.png"
-                      />
-                      <AvatarFallback>CN</AvatarFallback>
-                    </Avatar>
-                  </DropdownMenuTrigger>
-                  <DropdownMenuContent>
-                    <DropdownMenuLabel>Account</DropdownMenuLabel>
-                    <DropdownMenuSeparator />
-                    {user?.name && (
-                      <DropdownMenuItem className="cursor-pointer">
-                        {user?.name}
-                      </DropdownMenuItem>
-                    )}
-
-                    {user?.email && (
-                      <DropdownMenuItem className="cursor-pointer">
-                        {user?.email}
-                      </DropdownMenuItem>
-                    )}
-
-                    {!user?.email && (
-                      <>
-                        <Link to="/login">
-                          <DropdownMenuItem className="cursor-pointer">
-                            Login
-                          </DropdownMenuItem>
-                        </Link>
-
-                        <Link to="/signup">
-                          <DropdownMenuItem className="cursor-pointer">
-                            Sign Up
-                          </DropdownMenuItem>
-                        </Link>
-                      </>
-                    )}
-
-                    {user?.email && (
-                      <DropdownMenuItem
-                        className="cursor-pointer"
-                        onClick={() => handleLogOut()}
-                      >
-                        Log out
-                      </DropdownMenuItem>
-                    )}
-                  </DropdownMenuContent>
-                </DropdownMenu>
+                <li>
+                  <a className="hover:bg-[#181042] hover:text-white">
+                    Email: {user?.email}
+                  </a>
+                </li>
+              </>
+            )}
+            {user ? (
+              <li>
+                <a
+                  onClick={() => handleLogOut()}
+                  className="hover:bg-[#181042] hover:text-white"
+                >
+                  Logout
+                </a>
               </li>
-            </ul>
-          </div>
+            ) : (
+              <li>
+                <Link
+                  to="/login"
+                  className="hover:bg-[#181042] hover:text-white"
+                >
+                  Login
+                </Link>
+              </li>
+            )}
+          </ul>
         </div>
       </div>
-    </nav>
+    </div>
   );
 }

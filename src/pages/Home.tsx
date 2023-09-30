@@ -5,6 +5,7 @@ import {
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
 import Footer from '@/containers/Footer';
+import Navbar from '@/containers/Navbar';
 
 export default function Home() {
   const [searchValue, setSearchValue] = useState('');
@@ -20,16 +21,12 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen pt-10 bg-[#050816]">
-      <div className="text-center flex gap-2 items-center justify-center mb-5 px-4">
-        <input
-          type="text"
-          placeholder="Search UserName or Email"
-          onChange={(e) => handleFindUser(e)}
-          className="input input-bordered border-blue-500 bg-[#151030] text-white w-full max-w-xs"
-        />
-      </div>
-      <div className="w-11/12 sm:w-8/12 mx-auto min-h-[70vh]">
+    <div className="min-h-screen bg-[#050816]">
+      <Navbar handleFindUser={handleFindUser} />
+      <h1 className="mt-5 text-3xl font-bold text-center text-white">
+        All Users
+      </h1>
+      <div className="w-11/12 sm:w-8/12 mx-auto min-h-[70vh] mt-10">
         {allUsersExpectMe?.map((user: any) => (
           <Link
             to={myProfile ? `chat?email=${user?.email}` : `/login`}
