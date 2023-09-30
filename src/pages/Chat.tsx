@@ -100,30 +100,32 @@ const Chat: React.FC<{ message: any }> = ({ message }) => {
                 </DropdownMenu>
               </div>
             </div>
-            <div
-              className={`absolute cursor-pointer ${
-                isUserMessage ? 'right-full mr-6' : 'left-full ml-6'
-              }  top-1/3 text-gray-600`}
-            >
-              <DropdownMenu>
-                <DropdownMenuTrigger>
-                  <MdDeleteOutline className="text-white" />
-                </DropdownMenuTrigger>
-                <DropdownMenuContent>
-                  <h4 className="font-semibold mb-2 text-sm">
-                    Do you want to delete the message?
-                  </h4>
-                  <div className="flex justify-end">
-                    <button
-                      onClick={() => handleDeleteChat(message?.id)}
-                      className="border bg-red-600 text-xs text-white rounded-md px-2"
-                    >
-                      Yes
-                    </button>
-                  </div>
-                </DropdownMenuContent>
-              </DropdownMenu>
-            </div>
+            {isUserMessage && (
+              <div
+                className={`absolute cursor-pointer ${
+                  isUserMessage ? 'right-full mr-6' : 'left-full ml-6'
+                }  top-1/3 text-gray-600`}
+              >
+                <DropdownMenu>
+                  <DropdownMenuTrigger>
+                    <MdDeleteOutline className="text-white" />
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent>
+                    <h4 className="font-semibold mb-2 text-sm">
+                      Do you want to delete the message?
+                    </h4>
+                    <div className="flex justify-end">
+                      <button
+                        onClick={() => handleDeleteChat(message?.id)}
+                        className="border bg-red-600 text-xs text-white rounded-md px-2"
+                      >
+                        Yes
+                      </button>
+                    </div>
+                  </DropdownMenuContent>
+                </DropdownMenu>
+              </div>
+            )}
             {message?.reaction > 0 && (
               <div
                 onClick={() => handleReactionClick(message?.id, 0)}
