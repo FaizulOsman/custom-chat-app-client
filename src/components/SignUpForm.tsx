@@ -159,7 +159,7 @@ export function SignupForm({ className, ...props }: UserAuthFormProps) {
           <Button>Create Account</Button>
         </div>
       </form>
-      <div className="relative">
+      {/* <div className="relative">
         <div className="absolute inset-0 flex items-center">
           <span className="w-full border-t" />
         </div>
@@ -176,7 +176,7 @@ export function SignupForm({ className, ...props }: UserAuthFormProps) {
       >
         <p>Google</p>
         <FcGoogle />
-      </Button>
+      </Button> */}
     </div>
   );
 }

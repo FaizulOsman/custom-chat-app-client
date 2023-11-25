@@ -13,6 +13,40 @@ export default function Login() {
                 Enter your email below
               </p>
             </div>
+            <div className="flex justify-around mt-5">
+              <div className="dropdown dropdown-hover">
+                <label tabIndex={0} className="border-b-2 border-blue-600">
+                  User 1
+                </label>
+                <ul
+                  tabIndex={0}
+                  className="dropdown-content z-[1] menu p-4 shadow bg-base-100 rounded-box w-52"
+                >
+                  <p>
+                    <span className="font-bold">Email:</span> a@gmail.com
+                  </p>
+                  <p className="mt-2">
+                    <span className="font-bold">Password:</span> 123456
+                  </p>
+                </ul>
+              </div>
+              <div className="dropdown dropdown-hover dropdown-end">
+                <label tabIndex={0} className="border-b-2 border-blue-600">
+                  User 2
+                </label>
+                <ul
+                  tabIndex={0}
+                  className="dropdown-content z-[1] menu p-4 shadow bg-base-100 rounded-box w-52"
+                >
+                  <p>
+                    <span className="font-bold">Email:</span> b@gmail.com
+                  </p>
+                  <p className="mt-2">
+                    <span className="font-bold">Password:</span> 123456
+                  </p>
+                </ul>
+              </div>
+            </div>
             <LoginForm />
             <p className="px-8 text-center text-sm text-muted-foreground">
               Don't have account?
