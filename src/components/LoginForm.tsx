@@ -2,7 +2,8 @@
 'use client';
 
 import * as React from 'react';
-
+import { GoogleLogin, useGoogleLogin } from '@react-oauth/google';
+import { jwtDecode } from 'jwt-decode';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -23,6 +24,15 @@ interface LoginFormInputs {
 
 export function LoginForm({ className, ...props }: UserAuthFormProps) {
   const navigate = useNavigate();
+
+  const googleLogoutSuccess = (credentialResponse: any) => {
+    const decoded = jwtDecode(credentialResponse?.credential);
+    console.log(decoded);
+  };
+
+  // const handleGoogleLogin = useGoogleLogin({
+  //   onSuccess: (tokenResponse) => console.log(tokenResponse),
+  // });
 
   // API call
   const [login, { data, isError, isLoading, isSuccess, error }] =
@@ -120,10 +130,17 @@ export function LoginForm({ className, ...props }: UserAuthFormProps) {
         variant="outline"
         type="button"
         className="flex items-center justify-between"
+        onClick={() => handleGoogleLogin()}
       >
         <p>Google</p>
         <FcGoogle />
       </Button> */}
+      <GoogleLogin
+        onSuccess={googleLogoutSuccess}
+        onError={() => {
+          console.log('Login Failed');
+        }}
+      />
     </div>
   );
 }

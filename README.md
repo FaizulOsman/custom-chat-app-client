@@ -2,7 +2,7 @@
 
 ## Live Link:
 
-- Frontend: https://custom-chat-app-client.netlify.app/
+- Frontend: https://custom-chat-app-faizul.netlify.app/
 - Backend: https://custom-chat-app-server.vercel.app/
 
 ## Github Repository Link:
